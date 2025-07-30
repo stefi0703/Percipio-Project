@@ -21,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(AuditController.class)
 @Import(SecurityConfig.class)
+@WithMockUser(username = "user", roles = {"ADMIN"})
 
 class AuditControllerTest {
 

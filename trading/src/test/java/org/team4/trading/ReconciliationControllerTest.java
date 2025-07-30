@@ -22,6 +22,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 @WebMvcTest(ReconciliationController.class)
 @Import(SecurityConfig.class)
+@WithMockUser(username = "user", roles = {"ADMIN"})
 
 class ReconciliationControllerTest {
 
