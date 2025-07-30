@@ -29,6 +29,12 @@ public class TradeController {
         return tradeService.getTrade(id);
     }
 
+    @PostMapping("/dto")
+    public Trade createTradeDTO(@RequestBody TradeCreateDTO dto) {
+        return tradeService.createTradeDTO(dto);
+    }
+
+
     @Operation(summary = "Create a new trade")
     @PostMapping
     public Trade createTrade(@RequestBody Trade trade) {
