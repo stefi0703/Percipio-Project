@@ -37,9 +37,6 @@ public class ReconciliationService {
         reconciliationRun.setUnmatchedCount(0);
         reconciliationRun = reconciliationRunRepository.save(reconciliationRun);
 
-        reconciliationRun = reconciliationRunRepository.save(reconciliationRun); // <---- SAVE FIRST
-
-
         for (Map.Entry<String, List<Trade>> entry : tradesByTradeId.entrySet()) {
             List<Trade> tradeVersions = entry.getValue();
             if (tradeVersions.size() > 1) {
