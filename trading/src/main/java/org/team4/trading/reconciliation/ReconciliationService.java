@@ -70,8 +70,16 @@ public class ReconciliationService {
         reconciliationDifferenceRepository.save(difference);
     }
 
-    public ReconciliationRun getReconciliationRun(Long id) {
-        return reconciliationRunRepository.findById(id).orElse(null);
+    public java.util.List<ReconciliationRun> getAllReconciliationRuns() {
+        return reconciliationRunRepository.findAll();
+    }
+
+    public java.util.List<ReconciliationDifference> getReconciliationDifferencesByRunId(Long runId) {
+        ReconciliationRun reconciliationRun = reconciliationRunRepository.findById(runId).orElse(null);
+        if (reconciliationRun != null) {
+            return reconciliationDifferenceRepository.findByReconciliationRun(reconciliationRun);
+        }
+        return java.util.Collections.emptyList();
     }
 
 }
