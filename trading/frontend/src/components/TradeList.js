@@ -23,6 +23,8 @@ import {
     Fade
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
+import CreateTradeDialog from './CreateTradeDialog';
 
 const TradeList = () => {
     const [trades, setTrades] = useState([]);
@@ -31,6 +33,9 @@ const TradeList = () => {
     const [selectedTrade, setSelectedTrade] = useState(null);
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
     const [deleteLoading, setDeleteLoading] = useState(false);
+    const [createDialogOpen, setCreateDialogOpen] = useState(false);
+    const [createLoading, setCreateLoading] = useState(false);
+    const [createError, setCreateError] = useState(null);
 
     const fetchTrades = () => {
         setLoading(true);
@@ -92,6 +97,29 @@ const TradeList = () => {
         setSnackbar({ ...snackbar, open: false });
     };
 
+    const handleCreateTrade = (tradeData) => {
+        setCreateLoading(true);
+        setCreateError(null);
+        
+        axios.post('/api/trades', tradeData)
+            .then(response => {
+                setTrades([response.data, ...trades]);
+                setCreateDialogOpen(false);
+                setSnackbar({
+                    open: true,
+                    message: 'Trade created successfully',
+                    severity: 'success'
+                });
+            })
+            .catch(error => {
+                console.error('Error creating trade:', error);
+                setCreateError('Failed to create trade. Please try again.');
+            })
+            .finally(() => {
+                setCreateLoading(false);
+            });
+    };
+
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
@@ -102,9 +130,24 @@ const TradeList = () => {
 
     return (
         <div>
-            <Typography variant="h1" gutterBottom>
-                Trades
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Typography variant="h1">
+                    Trades
+                </Typography>
+                <Button
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    onClick={() => setCreateDialogOpen(true)}
+                    sx={{
+                        bgcolor: '#00137F',
+                        '&:hover': {
+                            bgcolor: '#001AA9'
+                        }
+                    }}
+                >
+                    New Trade
+                </Button>
+            </Box>
             <TableContainer component={Paper} elevation={2}>
                 <Table>
                     <TableHead>
@@ -221,6 +264,17 @@ const TradeList = () => {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
+
+            <CreateTradeDialog
+                open={createDialogOpen}
+                onClose={() => {
+                    setCreateDialogOpen(false);
+                    setCreateError(null);
+                }}
+                onSubmit={handleCreateTrade}
+                loading={createLoading}
+                error={createError}
+            />
         </div>
     );
 };
