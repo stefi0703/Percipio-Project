@@ -1,12 +1,12 @@
 -- Disable foreign key checks to allow dropping tables in any order
-SET FOREIGN_KEY_CHECKS = 0;
+--SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS reconciliation_difference;
 DROP TABLE IF EXISTS reconciliation_run;
 DROP TABLE IF EXISTS trade;
 DROP TABLE IF EXISTS instrument;
 
-SET FOREIGN_KEY_CHECKS = 1;
+--SET FOREIGN_KEY_CHECKS = 1;
 
 -- Trade Table
 CREATE TABLE IF NOT EXISTS trade (
