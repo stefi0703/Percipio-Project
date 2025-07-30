@@ -35,6 +35,7 @@ public class ReconciliationService {
         reconciliationRun.setStatus("COMPLETED");
         reconciliationRun.setMatchedCount(0);
         reconciliationRun.setUnmatchedCount(0);
+        reconciliationRun = reconciliationRunRepository.save(reconciliationRun);
 
         for (Map.Entry<String, List<Trade>> entry : tradesByTradeId.entrySet()) {
             List<Trade> tradeVersions = entry.getValue();
@@ -56,7 +57,7 @@ public class ReconciliationService {
         reconciliationRun.setUnmatchedCount((int) tradesByTradeId.values().stream().filter(l -> l.size() > 1).count());
 
         auditService.log("INFO", "Reconciliation process completed.");
-        return reconciliationRunRepository.save(reconciliationRun);
+        return reconciliationRun;
     }
 
     private void createDifference(ReconciliationRun reconciliationRun, String tradeId, String fieldName, String valueA, String valueB) {
