@@ -1,35 +1,50 @@
+-- Disable foreign key checks to allow dropping tables in any order
+SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS reconciliation_difference;
+DROP TABLE IF EXISTS reconciliation_run;
+DROP TABLE IF EXISTS trade;
+DROP TABLE IF EXISTS instrument;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Trade Table
 CREATE TABLE IF NOT EXISTS trade (
-    id SERIAL PRIMARY KEY,
-    trade_id VARCHAR(255) NOT NULL,
+                                     id INT AUTO_INCREMENT PRIMARY KEY,
+                                     trade_id VARCHAR(255) NOT NULL,
     instrument VARCHAR(255) NOT NULL,
-    price NUMERIC NOT NULL,
-    quantity INTEGER NOT NULL,
+    price DECIMAL(18,4) NOT NULL,
+    quantity INT NOT NULL,
     source_system VARCHAR(255) NOT NULL,
     trade_date DATE NOT NULL
-);
+    );
 
+-- Instrument Table
 CREATE TABLE IF NOT EXISTS instrument (
-    id SERIAL PRIMARY KEY,
-    symbol VARCHAR(50) NOT NULL UNIQUE,
+                                          id INT AUTO_INCREMENT PRIMARY KEY,
+                                          symbol VARCHAR(50) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL,
     isin VARCHAR(20) NOT NULL UNIQUE
-);
+    );
 
+-- Reconciliation Run Table
 CREATE TABLE IF NOT EXISTS reconciliation_run (
-    id SERIAL PRIMARY KEY,
-    run_date TIMESTAMP NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    matched_count INTEGER NOT NULL,
-    unmatched_count INTEGER NOT NULL
-);
+                                                  id INT AUTO_INCREMENT PRIMARY KEY,
+                                                  run_date DATETIME NOT NULL,
+                                                  status VARCHAR(20) NOT NULL,
+    matched_count INT NOT NULL,
+    unmatched_count INT NOT NULL
+    );
 
+-- Reconciliation Difference Table
 CREATE TABLE IF NOT EXISTS reconciliation_difference (
-    id SERIAL PRIMARY KEY,
-    trade_id VARCHAR(255) NOT NULL,
+                                                         id INT AUTO_INCREMENT PRIMARY KEY,
+                                                         trade_id VARCHAR(255) NOT NULL,
     field_name VARCHAR(100) NOT NULL,
     value_system_a VARCHAR(255),
     value_system_b VARCHAR(255),
-    reconciliation_run_id INTEGER NOT NULL,
-    FOREIGN KEY (reconciliation_run_id) REFERENCES reconciliation_run(id)
-);
+    reconciliation_run_id INT NOT NULL,
+    CONSTRAINT fk_run_id FOREIGN KEY (reconciliation_run_id)
+    REFERENCES reconciliation_run(id)
+    ON DELETE CASCADE
+    );
