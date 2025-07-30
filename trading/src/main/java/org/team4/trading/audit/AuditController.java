@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import java.util.List;
 
 @RestController
@@ -16,11 +18,13 @@ public class AuditController {
         this.auditService = auditService;
     }
 
+    @Operation(summary = "Get all audit logs")
     @GetMapping("/logs")
     public List<AuditLog> getLogs() {
         return auditService.getLogs();
     }
 
+    @Operation(summary = "Get error audit logs")
     @GetMapping("/errors/logs")
     public List<AuditLog> getErrorLogs() {
         return auditService.getLogs().stream()
