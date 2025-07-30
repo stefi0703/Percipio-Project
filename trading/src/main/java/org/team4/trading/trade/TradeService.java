@@ -28,4 +28,15 @@ public class TradeService {
     public void deleteTrade(Long id) {
         tradeRepository.deleteById(id);
     }
+
+    //create trade from DTO
+    public Trade createTradeDTO(TradeCreateDTO dto) {
+        Trade trade = new Trade();
+        trade.setInstrument(dto.getInstrument());
+        trade.setPrice(dto.getPrice());
+        trade.setQuantity(dto.getQuantity());
+        trade.setSourceSystem(dto.getSourceSystem());
+        trade.setTradeDate(dto.getTradeDate());
+        return tradeRepository.save(trade);
+    }
 }
