@@ -3,6 +3,7 @@ package org.team4.trading.instrument;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/instruments")
@@ -20,7 +21,7 @@ public class InstrumentController {
     }
 
     @GetMapping("/{id}")
-    public Instrument getInstrument(@PathVariable Long id) {
+    public Optional<Instrument> getInstrument(@PathVariable Long id) {
         return instrumentService.getInstrument(id);
     }
 
@@ -35,7 +36,7 @@ public class InstrumentController {
     }
 
     @GetMapping("/symbol/{symbol}")
-    public Instrument getInstrumentBySymbol(@PathVariable String symbol) {
+    public Optional<Instrument> getInstrumentBySymbol(@PathVariable String symbol) {
         return instrumentService.getInstrumentBySymbol(symbol);
     }
 }

@@ -21,8 +21,12 @@ public class InstrumentService {
         return instrumentRepository.findAll();
     }
 
-    public Instrument getInstrument(Long id) {
-        return instrumentRepository.findById(id).orElse(null);
+    public Optional<Instrument> getInstrument(Long id) {
+        return instrumentRepository.findById(id)
+                .or(() -> {
+                    auditService.log("WARN", "Instrument not found for ID: " + id);
+                    return Optional.empty();
+                });
     }
 
     public Instrument createInstrument(Instrument instrument) {
@@ -35,7 +39,11 @@ public class InstrumentService {
         instrumentRepository.deleteById(id);
     }
 
-    public Instrument getInstrumentBySymbol(String symbol) {
-        return instrumentRepository.findBySymbol(symbol).orElse(null);
+    public Optional<Instrument> getInstrumentBySymbol(String symbol) {
+        return instrumentRepository.findBySymbol(symbol)
+                .or(() -> {
+                    auditService.log("WARN", "Instrument not found for symbol: " + symbol);
+                    return Optional.empty();
+                });
     }
 }
