@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS reconciliation_difference;
 DROP TABLE IF EXISTS reconciliation_run;
 DROP TABLE IF EXISTS trade;
 DROP TABLE IF EXISTS instrument;
+DROP TABLE IF EXISTS audit_log;
 
 --SET FOREIGN_KEY_CHECKS = 1;
 
@@ -48,3 +49,11 @@ CREATE TABLE IF NOT EXISTS reconciliation_difference (
     REFERENCES reconciliation_run(id)
     ON DELETE CASCADE
     );
+
+-- Audit Log Table
+CREATE TABLE IF NOT EXISTS audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    level TEXT NOT NULL,
+    message TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);

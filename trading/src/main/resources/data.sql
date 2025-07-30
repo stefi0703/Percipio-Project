@@ -43,3 +43,16 @@ INSERT INTO reconciliation_difference (trade_id, field_name, value_system_a, val
                                                                                                                         ('T1003', 'quantity', '5', '6', 1),
                                                                                                                         ('T1004', 'price', '2700.0', '2800.0', 1),
                                                                                                                         ('T1004', 'quantity', '4', '5', 1);
+
+-- -------------------------------
+-- Sample Audit Logs
+-- -------------------------------
+INSERT INTO audit_log (level, message, timestamp) VALUES
+    ('INFO', 'Trade created', NOW()),
+    ('ERROR', 'Trade creation failed', NOW()),
+    ('INFO', 'Trade updated', NOW()),
+    ('DEBUG', 'Trade details fetched', NOW()),
+    ('ERROR', 'Trade deletion failed', NOW()),
+    ('INFO', 'Reconciliation run completed', NOW()),
+    ('DEBUG', 'Reconciliation run started', NOW()),
+    ('WARN', 'Unmatched trades found', NOW());
