@@ -17,12 +17,12 @@ public class ReconciliationController {
         return reconciliationService.reconcile();
     }
 
-    @GetMapping
+    @GetMapping("/differences")
     public java.util.List<ReconciliationRun> getAllReconciliationRuns() {
         return reconciliationService.getAllReconciliationRuns();
     }
 
-    @GetMapping("/{id}/differences")
+    @GetMapping("/differences/{id}")
     public java.util.List<ReconciliationDifference> getReconciliationDifferencesByRunId(@PathVariable Long id) {
         return reconciliationService.getReconciliationDifferencesByRunId(id);
     }

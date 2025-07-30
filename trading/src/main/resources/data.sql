@@ -38,7 +38,7 @@ VALUES (NOW(), 'COMPLETED', 2, 3);
 -- -------------------------------
 -- Sample Differences
 -- -------------------------------
-INSERT INTO reconciliation_difference (trade_id, field_name, value_system_a, value_system_b, reconciliation_run_id) VALUES
+INSERT INTO reconciliation_difference (trade_id, field_name, value_systema, value_systemb, reconciliation_run_id) VALUES
                                                                                                                         ('T1002', 'price', '150.0', '148.0', 1),
                                                                                                                         ('T1003', 'quantity', '5', '6', 1),
                                                                                                                         ('T1004', 'price', '2700.0', '2800.0', 1),

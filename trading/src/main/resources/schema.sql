@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS reconciliation_difference (
                                                          id INT AUTO_INCREMENT PRIMARY KEY,
                                                          trade_id VARCHAR(255) NOT NULL,
     field_name VARCHAR(100) NOT NULL,
-    value_system_a VARCHAR(255),
-    value_system_b VARCHAR(255),
+    value_systema VARCHAR(255),
+    value_systemb VARCHAR(255),
     reconciliation_run_id INT NOT NULL,
     CONSTRAINT fk_run_id FOREIGN KEY (reconciliation_run_id)
     REFERENCES reconciliation_run(id)
