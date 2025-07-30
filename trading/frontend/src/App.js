@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import TradeList from './components/TradeList';
 import InstrumentList from './components/InstrumentList';
 import Reconciliation from './components/Reconciliation';
+import AuditLogs from './components/AuditLogs';
 import theme from './theme';
 
 function Navigation() {
@@ -48,6 +49,16 @@ function Navigation() {
           >
             Reconciliation
           </Button>
+          <Button 
+            color="inherit" 
+            onClick={() => navigate('/audit-logs')}
+            sx={{ 
+              borderBottom: location.pathname === '/audit-logs' ? '2px solid white' : 'none',
+              borderRadius: 0
+            }}
+          >
+            Audit Logs
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>
@@ -66,6 +77,7 @@ function App() {
               <Route path="/trades" element={<TradeList />} />
               <Route path="/instruments" element={<InstrumentList />} />
               <Route path="/reconciliation" element={<Reconciliation />} />
+              <Route path="/audit-logs" element={<AuditLogs />} />
               <Route path="/" element={<TradeList />} />
             </Routes>
           </Container>
