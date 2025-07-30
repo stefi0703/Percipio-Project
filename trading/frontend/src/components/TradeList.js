@@ -5,7 +5,7 @@ const TradeList = () => {
     const [trades, setTrades] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/trades')
+        axios.get('/api/trades')
             .then(response => {
                 setTrades(response.data);
             });

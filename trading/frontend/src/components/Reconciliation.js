@@ -5,7 +5,7 @@ const Reconciliation = () => {
     const [reconciliationRun, setReconciliationRun] = useState(null);
 
     const startReconciliation = () => {
-        axios.post('http://localhost:8080/api/reconciliation/start')
+        axios.post('/api/reconciliation/start')
             .then(response => {
                 setReconciliationRun(response.data);
             });
