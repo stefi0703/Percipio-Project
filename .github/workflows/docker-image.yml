@@ -21,10 +21,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
       - name: Log in to Docker Hub using CLI
-        run: docker login -u stefi0703 -p ${{ secrets.DOCKER_TOKEN }}
+        run: docker login -u stefaniavintilescu -p ${{ secrets.DOCKER_TOKEN }}
       - name: Build Docker Image
         run: |
-          docker build -t stefi0703/Percipio-Project:latest .
+          docker build -t stefaniavintilescu/Percipio-Project:latest .
       - name: Push Docker Image to Docker Hub
         run: |
-          docker push stefi0703/Percipio-Project:latest
+          docker push stefaniavintilescu/Percipio-Project:latest
