@@ -24,7 +24,7 @@ jobs:
         run: docker login -u stefaniavintilescu -p ${{ secrets.DOCKER_TOKEN }}
       - name: Build Docker Image
         run: |
-          docker build -t stefaniavintilescu/Percipio-Project:latest .
+          docker build -t stefaniavintilescu/percipio-project:latest .
       - name: Push Docker Image to Docker Hub
         run: |
-          docker push stefaniavintilescu/Percipio-Project:latest
+          docker push stefaniavintilescu/percipio-project:latest
