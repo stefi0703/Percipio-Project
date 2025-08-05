@@ -8,7 +8,7 @@
  COPY target/trading-0.0.1-SNAPSHOT.jar app.jar
   
  # 4️Expose the application port
- EXPOSE 8080
+ EXPOSE 9090
   
  # 5️Run the application
  ENTRYPOINT ["java", "-jar", "app.jar"]
